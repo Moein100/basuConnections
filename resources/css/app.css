@@ -1,3 +1,29 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+.max-width-all 
+{
+    max-width: 1096px;
+}
+.max-width-left 
+{
+    max-width:280px;
+}
+.max-width-right 
+{
+    max-width:700px;
+}
+.rounded-search 
+{
+    border-radius: .75rem;
+}
+.text-xxs
+{
+    font-size : 0.625rem;
+    line-height: 1rem;
+}
+.submit-blue 
+{
+    background-color:   rgb(37 99 235 / var(--tw-bg-opacity));
+}
