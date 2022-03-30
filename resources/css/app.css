@@ -1,6 +1,23 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.d-vote
+{
+
+}
+.text-green-500
+{
+    color:rgba(16,185,129);
+}
+.text-purple-500 {
+    
+    color: rgb(168 85 247);
+}
+.text-yellow-500 {
+    
+    color: rgb(234 179 8 );
+}
 
 .max-width-all 
 {
@@ -12,7 +29,7 @@
 }
 .max-width-right 
 {
-    max-width:700px;
+    max-width:100%;
 }
 .rounded-search 
 {
@@ -26,4 +43,117 @@
 .submit-blue 
 {
     background-color:   rgb(37 99 235 / var(--tw-bg-opacity));
+}
+
+
+.w-104
+{
+    width: 16rem;
+}
+
+.w-76
+{
+    width: 16rem;
+}
+
+/* vertical line to the left of the comments  */
+.comments-container::before
+{
+    position: absolute;
+    display: block;
+    top: 0;
+    left: -40px;
+    content: "";
+    width:3px;
+    height:100%;
+    /* background:#78909c; */
+    background:#c5c5c5;
+    /* opacity: .07; */
+}
+
+.comment-container::before
+{
+    position: absolute;
+    display: block;
+    top: 57px;
+    left: -40px;
+    content: "";
+    width:23px;
+    height:3px;
+    /* background:#78909c; */
+    background:#c5c5c5;
+    /* opacity: .08;  */
+}
+
+.comment-container:last-child::after
+{
+    position: absolute;
+    display: block;
+    top: 60px;
+    left: -40px;
+    content: "";
+    width:10px;
+    height:calc(100% - 60px);
+    /* background:#78909c; */
+    background-color: rgb(243 244 246 / var(--tw-bg-opacity));
+    
+}
+
+.is-admin::before
+{
+    position: absolute;
+    width:38px;
+    height:38px;
+    border-radius: 38px;
+    border:7px solid white;
+    box-shadow:4px 4px 15px 0 rgba(36,37,38,0.08);
+    left: -58px;
+    background: purple;
+    opacity: 1;
+}
+.is-admin
+{
+    border-width: 1px;
+    border-image-source: linear-gradient(266deg, #21c8f6 98%, #637bff -52%);
+    background-image: linear-gradient(to bottom, #ffffff, #ffffff), linear-gradient(266deg, #21c8f6 98%, #637bff -52%);
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+}
+@media only screen and (min-width: 768px) {
+.max-width-right 
+{
+    max-width:700px;
+}
+.d-vote
+{
+    display:none;
+}
+
+.w-104
+{
+    width: 26rem;
+}
+
+.w-76
+{
+    width: 19rem;
+}
+.ml-22
+{
+    
+    margin-left: 5.5rem;
+}
+
+}
+
+@media only screen and (min-width: 992px) 
+{
+ 
+    .ml-22
+{
+    
+    margin-left: 5.5rem;
+}
+
+
 }

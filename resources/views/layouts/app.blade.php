@@ -17,12 +17,12 @@
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
     </head>
-    <body class="font-sans bg-gray-100 text-gray-900 text-sm" >
+    <body class="font-sans bg-gray-100 text-gray-900 text-sm">
 
             <!-- Page Heading -->
-            <header class="flex items-center justify-between px-8 py-4">
+            <header class="flex flex-col md:flex-row items-center justify-between px-8 py-4">
                 <a href="" ><img src="{{asset('img/logo.svg')}}" alt=""></a>
-                <div class="flex items-center">
+                <div class="flex items-center mt-2 md:mt-0">
                     @if (Route::has('login'))
                     <div class="  px-6 py-4 ">
                         @auth
@@ -51,12 +51,24 @@
                 </div>
             </header>
 
+
+            <div class="container flex justify-center">
+                <a href="/" 
+                class="md:hidden flex items-center font-semibold hover:underline">
+                    <svg  class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                    </svg>
+                    <span class="ml-2">All ideas</span>
+                </a>
+            </div>  
+
+
             <!-- Page Content -->
-            <main class="container mx-auto max-width-all flex">
+            <main class="container mx-auto max-width-all flex flex-col md:flex-row">
 
                 {{-- left sidebar --}}
-                <div class="max-width-left mr-5 w-full">
-                    <div class="border-2 border-blue-300 rounded-xl mt-16 bg-white">
+                <div class="max-width-left  w-full mx-auto md:m-0 md:mr-5">
+                    <div class="border-2 md:sticky md:top-8 border-blue-300 rounded-xl mt-16 bg-white">
                         <div class="text-center px-3 py-2 pt-6">
                             <h3 class="font-semibold text-base">
                                 Add an Idea
@@ -105,8 +117,8 @@
                 </div>
 
                 {{-- right side --}}
-                <div class="max-width-right w-full ">
-                    <nav class="flex items-center justify-between text-xs mb-4">
+                <div class="max-width-right w-full px-2 md:px-0">
+                    <nav class="hidden lg:flex items-center justify-between text-xs mb-4">
                         <ul class="flex uppercase font-semibold border-b-4 pb-3 space-x-10">
                             <li><a href="" class="border-b-4 pb-3 border-blue-400">All Ideas (87)</a></li>    
                             <li><a href="" class="text-gray-400 transition duration-150
