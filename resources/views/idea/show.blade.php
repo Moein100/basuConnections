@@ -26,22 +26,22 @@
         {{-- 2 --}}
         <div class="flex flex-col md:flex-row flex-1 px-2 py-6"> 
             <div class="flex-none mx-2 md:mx-0">
-                <a href="" ><img src="https://source.unsplash.com/200*200/?face&crop=face&v=1" alt="avatar" class="w-14 h-14 rounded-xl"></a>
+                <a href="" ><img src="{{$idea->user->getAvatar()}}" alt="avatar" class="w-14 h-14 rounded-xl"></a>
             </div>
             <div class="w-full mx-4">
-                <h4 class="text-xl font-semibold mt-2 md:mt-0>
-                    <a href="#" class="hover:underline">A random title can go here</a>
+                <h4 class="text-xl font-semibold mt-2 md:mt-0">
+                    <a href="#" class="hover:underline">{{$idea->title}}</a>
                 </h4>
                 <div class="text-gray-600 mt-3">
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequuntur fugit nam tempora. Id veniam blanditiis laborum ad. Cumque, sed harum facere nam maxime atque temporibus quis, numquam vel expedita voluptatem!
+                    {{$idea->description}}
                 </div>
                 <div class="flex flex-col lg:flex-row  justify-between mt-6">
                     <div class="flex items-center md:text-xs text-xxs font-semibold space-x-2 text-gray-300">
-                        <div class="font-bold text-gray-900">John Doe</div>
+                        <div class="font-bold text-gray-900">{{$idea->user->name}}</div>
                         <div>&bull;</div>
-                        <div>10 Hours ago</div>
+                        <div>{{$idea->created_at->diffForHumans()}}</div>
                         <div>&bull;</div>
-                        <div>category 1</div>
+                        <div>{{$idea->category->name}}</div>
                         <div>&bull;</div>
                         <div class="text-gray-800">3 comments</div>
                     </div>
