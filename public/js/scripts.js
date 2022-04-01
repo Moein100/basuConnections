@@ -7,13 +7,14 @@ function GoToIdea(event) {
 
     console.log(tagName);
 
-    const ignores=['button','svg','path','a'];
+    const ignores=['button','svg','path','span'];
 
 
 
     if (! ignores.includes(tagName)) 
     {
         event.target.closest('.idea-container').querySelector('.idea-link').click();
+        // console.log(event.target.closest('.idea-container').querySelector('.idea-link'));
     }
 }
 

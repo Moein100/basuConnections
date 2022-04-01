@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Idea;
 use App\Http\Requests\StoreIdeaRequest;
 use App\Http\Requests\UpdateIdeaRequest;
+use App\Models\Vote;
 
 class IdeaController extends Controller
 {
@@ -15,10 +16,16 @@ class IdeaController extends Controller
      */
     public function index()
     {
-        return view('idea.index',
-        [
-            'ideas' => Idea::simplePaginate(10),
-        ]);
+
+        return view('idea.index');
+
+        // return view('idea.index',
+        // [
+        //     'ideas' => Idea::withCount('votes')
+        //     ->addSelect(['voted_by_user' => Vote::select('id')->where('user_id',auth()->id())->whereColumn('idea_id','ideas.id')])
+        //     ->orderBy('id','desc')
+        //     ->simplePaginate(10),
+        // ]);                this code went to livewire component: IdeasIndex
     }
 
     /**
@@ -51,7 +58,8 @@ class IdeaController extends Controller
     public function show(Idea $idea)
     {
         return view('idea.show',[
-            'idea' => $idea
+            'idea' => $idea,
+            'votesCount' => $idea->votes()->count(),
         ]);
     }
 
