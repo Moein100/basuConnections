@@ -22,7 +22,7 @@
 
             <!-- Page Heading -->
             <header class="flex flex-col md:flex-row items-center justify-between px-8 py-4">
-                <a href="" ><img src="{{asset('img/logo.svg')}}" alt=""></a>
+                <a href="/" ><img src="{{asset('img/logo.svg')}}" alt=""></a>
                 <div class="flex items-center mt-2 md:mt-0">
                     @if (Route::has('login'))
                     <div class="  px-6 py-4 ">
@@ -54,12 +54,12 @@
 
 
             <div class="container flex justify-center">
-                <a href="/" 
+                <a href="{{url()->previous()}}" 
                 class="md:hidden flex items-center font-semibold hover:underline">
                     <svg  class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
                     </svg>
-                    <span class="ml-2">All ideas</span>
+                    <span class="ml-2">Back</span>
                 </a>
             </div>  
 
@@ -108,21 +108,7 @@
 
                 {{-- right side --}}
                 <div class="max-width-right w-full px-2 md:px-0">
-                    <nav class="hidden lg:flex items-center justify-between text-xs mb-4">
-                        <ul class="flex uppercase font-semibold border-b-4 pb-3 space-x-10">
-                            <li><a href="" class="border-b-4 pb-3 border-blue-400">All Ideas (87)</a></li>    
-                            <li><a href="" class="text-gray-400 transition duration-150
-                                ease-in border-b-4 pb-3 hover:border-blue-400">Considering (6)</a></li>
-                                <li><a href="" class="text-gray-400 transition duration-150
-                                    ease-in border-b-4 pb-3 hover:border-blue-400">In progress (1)</a></li>    
-                        </ul>   
-                        
-                        <ul class="flex uppercase font-semibold border-b-4 pb-3 space-x-10">
-                            <li><a href="" class="border-b-4 pb-3 border-blue-400">implemented (10)</a></li>    
-                            <li><a href="" class="text-gray-400 transition duration-150
-                                ease-in border-b-4 pb-3 hover:border-blue-400">closed (6)</a></li>
-                        </ul> 
-                    </nav>                    
+                    <livewire:status-filters/>
                     {{$slot}}
                 </div>
             </main>
