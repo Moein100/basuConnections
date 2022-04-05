@@ -12,6 +12,8 @@ class IdeaShow extends Component
     public $votesCount;
     public $hasVoted;
 
+    protected $listeners = ['statusWasUpdated'];
+
     public function mount(Idea $idea,$votesCount)
     {
         $this->idea=$idea;
@@ -19,6 +21,15 @@ class IdeaShow extends Component
         $this->hasVoted = $idea->isVotedByUser(auth()->user());
         // $this->hasVoted = $idea->voted_by_user; this line is just for the index page because we have subquery (addSelect) just on that page
     }
+
+
+    public function statusWasUpdated()
+    {
+        $this->idea->refresh();
+    }
+
+
+
 
     public function vote()
     {
