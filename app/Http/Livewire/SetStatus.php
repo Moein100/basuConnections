@@ -2,10 +2,11 @@
 
 namespace App\Http\Livewire;
 
-use App\Mail\IdeaStatusUpdateMailable;
+use App\Jobs\NotifyAllVoters;
+// use App\Mail\IdeaStatusUpdateMailable;
 use App\Models\Idea;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Mail;
+// use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
 
 class SetStatus extends Component
@@ -33,45 +34,58 @@ class SetStatus extends Component
 
         $this->idea->status_id = $this->status;
         $this->idea->save();
-
-        if ($this->notifyAllVoters) {
-            $this->notifyAllVoters();
-        }
-
         $this->emit('statusWasUpdated');
 
 
-
-    }
-
-
-    public function notifyAllVoters()
-    {
-        // $voters=$this->idea->votes()->select('name','email')->get();
-
-        // foreach($voters as $user)
-        // {
-        //     // send email
-        // }
-
-        // the code below is for the time that we have more than 100 voters so we cant notify all of them at once
-
-         $voters=$this->idea->votes()->select('name','email')
+        
+        if ($this->notifyAllVoters) 
+        {
+            $voters=$this->idea->votes()->select('name','email')
          ->chunk(100,function ($voters)
          {
              foreach($voters as $user)
              {
                  //send email
-                 Mail::to($user)->queue(new IdeaStatusUpdateMailable($this->idea));
-             }
-            
-         });
-        
+                NotifyAllVoters::dispatch($user,$this->idea)->delay(2);
+         }});
+           
+                // NotifyAllVoters::dispatch($this->idea);
+           
+        }
 
 
 
-        
+
     }
+
+
+    // public function notifyAllVoters()
+    // {
+    //     // $voters=$this->idea->votes()->select('name','email')->get();
+
+    //     // foreach($voters as $user)
+    //     // {
+    //     //     // send email
+    //     // }
+
+    //     // the code below is for the time that we have more than 100 voters so we cant notify all of them at once
+
+    //     //  $voters=$this->idea->votes()->select('name','email')
+    //     //  ->chunk(100,function ($voters)
+    //     //  {
+    //     //      foreach($voters as $user)
+    //     //      {
+    //     //          //send email
+    //     //          Mail::to($user)->queue(new IdeaStatusUpdateMailable($this->idea));
+    //     //      }
+            
+    //     //  });
+        
+
+
+
+        
+    // }
 
     public function render()
     {
