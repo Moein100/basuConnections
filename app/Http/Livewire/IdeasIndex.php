@@ -25,7 +25,7 @@ class IdeasIndex extends Component
         'search' => ['except' => ""],
     ];
 
-    protected $listeners=['queryStringUpdatedStatus'];
+    protected $listeners=['queryStringUpdatedStatus','resetPage'];
 
 
     // A common pattern when filtering a paginated result set is to reset the current page to "1" when filtering is applied.
@@ -82,6 +82,11 @@ class IdeasIndex extends Component
     {
         $this->resetPage();
         $this->status=$newStatus; 
+    }
+
+    public function resetPage()
+    {
+        $this->reset();
     }
 
 

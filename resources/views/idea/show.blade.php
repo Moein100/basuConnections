@@ -14,7 +14,7 @@
 
 
 <livewire:idea-show :idea="$idea" :votesCount="$votesCount"/>
-  
+  <livewire:edit-idea />
 
   {{-- comment container  --}}
 

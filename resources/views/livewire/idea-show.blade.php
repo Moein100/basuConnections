@@ -32,22 +32,28 @@
                                 <div class="{{$idea->status->classes}} text-xxs font-bold uppercase leading-none rounded-full text-center  px-7 py-1">
                                     {{$idea->status->name}}
                                 </div>
-                                <button 
-                                @click="isOpen = !isOpen"
-                                @click.away="isOpen = false"
-                                @keydown.escape.window="isOpen = false"
-                                class="bg-gray-200 text-xxs hover:bg-gray-400 rounded-full py-1 px-4 transition duration-150 ease-in "
-                                >
-                                    <svg class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                                        <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" />
-                                    </svg>
+                                <div class="relative">
+
+                                    <button 
+                                    @click="isOpen = !isOpen"
+                                    @click.away="isOpen = false"
+                                    @keydown.escape.window="isOpen = false"
+                                    class="bg-gray-200 text-xxs hover:bg-gray-400 rounded-full py-1 px-4 transition duration-150 ease-in "
+                                    >
+                                        <svg class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                            <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" />
+                                        </svg>
+                                    </button>
                                     <ul
                                     x-show="isOpen" x-transition.origin.top.left.duration.200ms  
                                     class="absolute z-20 w-44 font-semibold text-sm bg-white shadow-lg rounded-xl py-3   lg:ml-8  -ml-36" style="display : none">
-                                        <li><a href="" class="hover:bg-gray-200 px-5 py-3 block transition duration-150 ease-in"> Mark as smap</a></li>
-                                        <li><a href="" class="hover:bg-gray-200 px-5 py-3 block transition duration-150 ease-in"> Delete Post</a></li>
+                                        <li><a href="#"
+                                            @click="$dispatch('custom-show-edit-modal')"
+                                            class="hover:bg-gray-200 px-5 py-3 block transition duration-150 ease-in"> edit</a></li>
+                                        <li><a href="" class="hover:bg-gray-200 px-5 py-3 block transition duration-150 ease-in"> mark as spam</a></li>
+                                        <li><a href="" class="hover:bg-gray-200 px-5 py-3 block transition duration-150 ease-in"> Delete Idea</a></li>
                                     </ul>
-                                </button>
+                                </div>
                             </div>
     
     

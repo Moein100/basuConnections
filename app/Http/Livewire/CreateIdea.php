@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Category;
 use App\Models\Idea;
+use App\Models\Vote;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
 
@@ -29,11 +30,15 @@ class CreateIdea extends Component
     
     public function createIdea()
     {
-        if (auth()->check()) 
+        if (auth()->guest()) 
         {
+            return redirect()->route('idea.index');
+        }
+
+       
             $this->validate();
 
-            Idea::create(
+            $idea=  Idea::create(
                 [
                     'user_id' => auth()->id(),
                     'category_id' => $this->category,
@@ -41,13 +46,24 @@ class CreateIdea extends Component
                     'title' => $this->title,    
                     'description' => $this->description,    
                 ]);
-        }
+        
 
-        session()->flash('success_message','idea was added successfully');
 
-        $this->reset();
+            // Vote::create(
+            // [
+            //     'idea_id' => $idea->id,
+            //     'user_id' =>auth()->id(),
+            // ]);
 
-        return redirect()->route('idea.index');
+
+            $idea->vote(auth()->user());
+
+            session()->flash('success_message','idea was added successfully');
+
+            $this->emit('resetPage');
+            $this->reset();
+
+        
     }
 
 
