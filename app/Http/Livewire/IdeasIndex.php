@@ -33,7 +33,7 @@ class IdeasIndex extends Component
     // Livewire's WithPagination trait exposes a ->resetPage() method to accomplish this.
     // This method can be used in combination with the updating/updated lifecycle hooks to reset the page when certain component data is updated.
     //like this:
-    
+
     // public function updatingStatus()
     // {
     //     $this->resetPage();
@@ -62,9 +62,9 @@ class IdeasIndex extends Component
 
     public function updatedFilter()
     {
-        if ($this->filter == "My Idea") 
+        if ($this->filter == "My Idea")
         {
-            if (!auth()->check()) 
+            if (!auth()->check())
             {
                 return redirect()->route('login');
             }
@@ -81,7 +81,7 @@ class IdeasIndex extends Component
     public function queryStringUpdatedStatus($newStatus)
     {
         $this->resetPage();
-        $this->status=$newStatus; 
+        $this->status=$newStatus;
     }
 
     public function resetPage()
@@ -124,6 +124,10 @@ class IdeasIndex extends Component
             {
                 return $query->where('user_id',auth()->id());
             })
+            ->when($this->filter && $this->filter == "Spam",function($query)
+            {
+                return $query->where('spam_reports','>',0)->orderByDesc('spam_reports');
+            })
             ->when(strlen($this->search) >= 3,function($query)
             {
                 return $query->where('title','like',"%".$this->search."%");
@@ -132,6 +136,6 @@ class IdeasIndex extends Component
             ->orderBy('id','desc')
             ->simplePaginate(10),
             'categories' => $categories,
-        ]); 
+        ]);
     }
 }

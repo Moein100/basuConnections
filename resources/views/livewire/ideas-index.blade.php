@@ -5,11 +5,11 @@
     <div class="w-full md:w-1/3">
         <select wire:model="category" name="category" id="category" class="w-full border-none rounded-xl px-4 py-2">
             <option value="All Categories">All Categories</option>
-            
+
             @foreach($categories as $category)
-            
+
                 <option value="{{$category->name}}">{{$category->name}}</option>
-            
+
             @endforeach
         </select>
     </div>
@@ -18,10 +18,13 @@
             <option value="No Filter">No Filter</option>
             <option value="Top Voted">Top Voted</option>
             <option value="My Ideas">My Ideas</option>
+            @admin
+            <option value="Spam">Spams</option>
+            @endadmin
         </select>
     </div>
     <div class="w-full md:w-1/3 relative">
- 
+
         <input wire:model="search" type="search" placeholder="Find an Idea" class="w-full placeholder-gray-900 border-none rounded-search  bg-white px-4 py-2 pl-8">
         <div class="absolute top-0 flex items-center text-gray-700 h-full ml-2">
             <svg class="h-6 w-4 " fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -37,7 +40,7 @@
 
 @forelse ($ideas as $idea)
     {{-- ideas1 --}}
-        <livewire:idea-index 
+        <livewire:idea-index
         :key="$idea->id"
         :idea="$idea" :votesCount="$idea->votes_count"/>
       {{-- end Ideas1 --}}

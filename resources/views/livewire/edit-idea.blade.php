@@ -1,17 +1,21 @@
 <div>
     {{-- Close your eyes. Count to one. That is how long forever feels. --}}
- 
-<div 
+
+<div
 x-data="{isOpen:false}"
 x-show="isOpen"
 @keydown.escape.window="isOpen = false"
-@custom-show-edit-modal.window="isOpen = true"
+@custom-show-edit-modal.window="
+isOpen = true
+$nextTick(() => $refs.title.focus())
+"
+x-init="window.livewire.on('IdeaWasUpdated', () => { isOpen = false})"
 x-transition.origin.bottom.duration.400ms
 class=" fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true" style="display: none">
     <div class="flex items-end justify-center min-h-screen ">
       <!--
         Background overlay, show/hide based on modal state.
-  
+
         Entering: "ease-out duration-300"
           From: "opacity-0"
           To: "opacity-100"
@@ -19,14 +23,14 @@ class=" fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="
           From: "opacity-100"
           To: "opacity-0"
       -->
-      <div 
+      <div
       x-transition.origin.bottom.duration.500ms
       class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
-  
-  
+
+
       <!--
         Modal panel, show/hide based on modal state.
-  
+
         Entering: "ease-out duration-300"
           From: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
           To: "opacity-100 translate-y-0 sm:scale-100"
@@ -34,10 +38,10 @@ class=" fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="
           From: "opacity-100 translate-y-0 sm:scale-100"
           To: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
       -->
-      <div 
+      <div
       x-transition.origin.bottom.duration.500ms
       class="modal  bg-white rounded-tl-xl rounded-tr-xl  overflow-hidden shadow-xl transform transition-all py-4  sm:max-w-lg sm:w-full">
-        
+
         <div class="absolute top-0 right-0 pt-4 pr-4">
           <button
           @click="isOpen = false"
@@ -47,16 +51,16 @@ class=" fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="
             </svg>
           </button>
         </div>
-        
-        
+
+
         <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
           <h3 class="text-center text-lg font-bold text-gray-700">Edit Idea</h3>
           <p class="text-xs text-center leading-5 text-gray-700 mt-4 px-6">
             you have 1 hour to edit your idea from the time you created it.
           </p>
-          <form wire:submit.prevent="createIdea" action="" method="POST" class="space-y-4 py-6">
+          <form wire:submit.prevent="updateIdea" action="" method="POST" class="space-y-4 py-6">
             <div>
-                <input wire:model.defer="title" type="text" class="w-full border-none text-sm bg-gray-200 rounded-xl placeholder-gray-500
+                <input wire:model.defer="title" x-ref="title" type="text" class="w-full border-none text-sm bg-gray-200 rounded-xl placeholder-gray-500
                 px-4 py-2 " placeholder="your Idea">
                 @error('title')
                     <p class="text-red-600 tex-xs mt-1">
@@ -87,7 +91,7 @@ class=" fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="
                 @enderror
             </div>
             <div class="flex items-center justify-between space-x-3">
-                <button type="button" 
+                <button type="button"
                 class="flex items-center justify-center w-1/2 h-11 text-xs bg-gray-200
                 font-semibold rounded-xl border border-gray-200 hover:border-gray-400
                 transition duration-150 ease-in">
@@ -96,20 +100,20 @@ class=" fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="
                      </svg>
                     <span> Attach</span>
                 </button>
-    
-    
-                <button type="submit" 
+
+
+                <button type="submit"
                 class="flex submit-blue  items-center justify-center w-1/2 h-11 text-xs text-white
                 font-semibold rounded-xl border-2 border-blue-600 hover:border-blue-800
                 transition duration-150 ease-in">
-                    <span>Submit</span>
+                    <span>Update</span>
                 </button>
             </div>
         </form>
         </div>
-        
+
       </div>
     </div>
   </div>
-  
+
 </div>

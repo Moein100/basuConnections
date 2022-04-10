@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\Category;
 use App\Models\Idea;
 use App\Models\Vote;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
 
@@ -35,7 +36,7 @@ class CreateIdea extends Component
             return redirect()->route('idea.index');
         }
 
-       
+      
             $this->validate();
 
             $idea=  Idea::create(
@@ -58,10 +59,20 @@ class CreateIdea extends Component
 
             $idea->vote(auth()->user());
 
-            session()->flash('success_message','idea was added successfully');
 
-            $this->emit('resetPage');
-            $this->reset();
+            if (app('router')->getRoutes()->match(app('request')->create(url()->previous()))->getName() == "idea.index") 
+            {
+                session()->flash('success_message','idea was added successfully');
+
+                $this->emit('resetPage');
+                $this->reset();
+            }else
+            {
+                 redirect('/')->with('success_message','idea was added successfully');
+            }
+
+
+            
 
         
     }

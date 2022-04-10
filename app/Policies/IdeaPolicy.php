@@ -16,7 +16,16 @@ class IdeaPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(User $user)
+    public function before(User $user, $ability)
+    {
+        if ($user->isAdmin())
+        {
+            return true;
+        }
+    }
+
+
+     public function viewAny(User $user)
     {
         //
     }
@@ -53,7 +62,7 @@ class IdeaPolicy
      */
     public function update(User $user, Idea $idea)
     {
-        //
+        return $user->id == $idea->user_id && now()->subHour() <= $idea->created_at;
     }
 
     /**
@@ -65,7 +74,7 @@ class IdeaPolicy
      */
     public function delete(User $user, Idea $idea)
     {
-        //
+        return $user->id == $idea->user_id;
     }
 
     /**
