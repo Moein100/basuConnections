@@ -47,6 +47,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Idea::class);
     }
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 
     public function votes()
     {
@@ -59,8 +63,8 @@ class User extends Authenticatable
     {
         $firstChar= $this->email[0];
 
-        $intToUse= is_numeric($firstChar) 
-        ? ord(strtolower($firstChar)) - 21 
+        $intToUse= is_numeric($firstChar)
+        ? ord(strtolower($firstChar)) - 21
         : ord(strtolower($firstChar)) - 96;
 
         return 'https://www.gravatar.com/avatar/'

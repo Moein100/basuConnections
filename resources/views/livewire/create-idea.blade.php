@@ -32,7 +32,7 @@
             @enderror
         </div>
         <div class="flex items-center justify-between space-x-3">
-            <button type="button" 
+            <button type="button"
             class="flex items-center justify-center w-1/2 h-11 text-xs bg-gray-200
             font-semibold rounded-xl border border-gray-200 hover:border-gray-400
             transition duration-150 ease-in">
@@ -43,7 +43,7 @@
             </button>
 
 
-            <button type="submit" 
+            <button type="submit"
             class="flex submit-blue  items-center justify-center w-1/2 h-11 text-xs text-white
             font-semibold rounded-xl border-2 border-blue-600 hover:border-blue-800
             transition duration-150 ease-in">
@@ -52,17 +52,18 @@
         </div>
     </form>
     <div>
-        @if(session('success_message'))
-            <div
-            x-data="{ isVisible : true}"
-            x-init = "setTimeout(() => {isVisible =false},5000)"
-            x-show="isVisible"
-            x-transition.origin.200ms
-            @click="isVisible = !isVisible"
-            @click.away="isVisible = false"
-            class="flex justify-center cursor-pointer text-white my-4 bg-green-700 rounded-xl px-2 py-1">
-                <span>{{ session('success_message') }}</span>
-            </div>
-        @endif    
+{{--        @if(session('success_message'))--}}
+{{--            <div--}}
+{{--            x-data="{ isVisible : true}"--}}
+{{--            x-init = "setTimeout(() => {isVisible =false},5000)"--}}
+{{--            x-show="isVisible"--}}
+{{--            x-transition.origin.200ms--}}
+{{--            @click="isVisible = !isVisible"--}}
+{{--            @click.away="isVisible = false"--}}
+{{--            class="flex justify-center cursor-pointer text-white my-4 bg-green-700 rounded-xl px-2 py-1">--}}
+{{--                <span>{{ session('success_message') }}</span>--}}
+{{--            </div>--}}
+{{--        @endif    --}}
+        <x-notification-success/>
     </div>
 </div>

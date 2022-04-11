@@ -15,8 +15,9 @@
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
         @livewireStyles
          <!-- Scripts -->
-         <script src="{{ asset('js/app.js') }}" defer></script>
-        
+
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     </head>
     <body class="font-sans bg-gray-100 text-gray-900 text-sm">
 
@@ -38,7 +39,7 @@
                         </form>
                         @else
                             <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Log in</a>
-    
+
                             @if (Route::has('register'))
                                 <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</a>
                             @endif
@@ -54,14 +55,14 @@
 
 
             <div class="container flex justify-center">
-                <a href="{{url()->previous()}}" 
+                <a href="{{url()->previous()}}"
                 class="md:hidden flex items-center font-semibold hover:underline">
                     <svg  class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
                     </svg>
                     <span class="ml-2">Back</span>
                 </a>
-            </div>  
+            </div>
 
 
             <!-- Page Content -->
@@ -75,9 +76,9 @@
                                 Add an Idea
                             </h3>
                             <p class="text-xs mt-4">
-                            @auth 
+                            @auth
                                 let us know what you would like
-                            @else  
+                            @else
                                 please Login to create an idea.
                             @endauth
                             </p>
@@ -85,7 +86,7 @@
                            <livewire:create-idea />
                             @else
                             <div class="my-6 text-center">
-                                <a href="{{route('login')}}" 
+                                <a href="{{route('login')}}"
                                     class="flex flex-col justify-center mx-auto w-1/2 h-11 text-xs bg-blue-500 text-white
                                     font-semibold rounded-xl border-2 border-blue-500 hover:border-blue-800
                                     transition duration-150 ease-in">
@@ -97,7 +98,7 @@
                                     class="flex flex-col justify-center mx-auto mt-3 w-1/2 h-11 text-xs bg-gray-200
                                     font-semibold rounded-xl border border-gray-200 hover:border-gray-400
                                     transition duration-150 ease-in">
-            
+
                                         <span> Sing up</span>
                                 </a>
                             </div>
@@ -114,8 +115,10 @@
             </main>
         </div>
 
-       
-        <script src="{{ asset('js/scripts.js') }}" ></script>
+
+
         @livewireScripts
+        <script src="{{ asset('js/app.js') }}"></script>
+        <script src="{{ asset('js/scripts.js') }}"></script>
     </body>
 </html>

@@ -35,6 +35,10 @@ class Idea extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 
     public function votes()
     {
@@ -87,12 +91,12 @@ class Idea extends Model
     //         'In Progress' =>'bg-yellow-500 text-white',
     //         'Implemented' =>'bg-green-500 text-white',
     //         'Closed' =>'bg-red-500 text-white',
-            
+
     //     ];
 
     //     return $allStatuses[$this->status->name];
 
-    //     // if ($this->status->name == "Open") 
+    //     // if ($this->status->name == "Open")
     //     // {
     //     //     return 'bg-gray-200';
     //     // }elseif($this->status->name == "Considering")

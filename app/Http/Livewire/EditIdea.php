@@ -11,7 +11,7 @@ use Livewire\Component;
 class EditIdea extends Component
 {
     public $idea;
-    
+
     public $title;
 
     public $category =1;
@@ -26,7 +26,7 @@ class EditIdea extends Component
             'category' => ['required','integer',Rule::exists('categories','id')],
             'description' => ['required','min:4'],
         ];
-    
+
     }
 
 
@@ -43,8 +43,8 @@ class EditIdea extends Component
 
     public function updateIdea()
     {
-        
-        if (auth()->guest() || auth()->user()->cannot('update',$this->idea)) 
+
+        if (auth()->guest() || auth()->user()->cannot('update',$this->idea))
         {
             abort(Response::HTTP_FORBIDDEN);
         }
@@ -56,9 +56,11 @@ class EditIdea extends Component
                 "category_id" => $this->category,
                 "description" => $this->description,
             ]);
-    
-    
-           $this->emit('IdeaWasUpdated'); 
+
+
+           $this->emit('IdeaWasUpdated');
+
+
     }
 
     public function render()

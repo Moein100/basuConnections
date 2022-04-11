@@ -26,17 +26,17 @@ class CreateIdea extends Component
             'category' => ['required','integer',Rule::exists('categories','id')],
             'description' => ['required','min:4'],
         ];
-    
+
     }
-    
+
     public function createIdea()
     {
-        if (auth()->guest()) 
+        if (auth()->guest())
         {
             return redirect()->route('idea.index');
         }
 
-      
+
             $this->validate();
 
             $idea=  Idea::create(
@@ -44,10 +44,10 @@ class CreateIdea extends Component
                     'user_id' => auth()->id(),
                     'category_id' => $this->category,
                     'status_id' => 1,
-                    'title' => $this->title,    
-                    'description' => $this->description,    
+                    'title' => $this->title,
+                    'description' => $this->description,
                 ]);
-        
+
 
 
             // Vote::create(
@@ -60,21 +60,24 @@ class CreateIdea extends Component
             $idea->vote(auth()->user());
 
 
-            if (app('router')->getRoutes()->match(app('request')->create(url()->previous()))->getName() == "idea.index") 
+            if (app('router')->getRoutes()->match(app('request')->create(url()->previous()))->getName() == "idea.index")
             {
-                session()->flash('success_message','idea was added successfully');
+
+
 
                 $this->emit('resetPage');
+
                 $this->reset();
+                $this->emit('ideaWasCreated');
             }else
             {
                  redirect('/')->with('success_message','idea was added successfully');
             }
 
 
-            
 
-        
+
+
     }
 
 

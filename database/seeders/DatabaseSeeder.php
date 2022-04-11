@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\Idea;
 use App\Models\Status;
 use App\Models\Vote;
@@ -26,8 +27,8 @@ class DatabaseSeeder extends Seeder
         Status::factory()->create(['name' => 'Implemented','classes' => 'bg-green-500 text-white']);
         Status::factory()->create(['name' => 'Closed','classes' => 'bg-red-500 text-white']);
         Idea::factory(100)->create();
-        
-        
+
+
         //generate unique votes.Ensure idea_id and user_id are unique for each row
 
         foreach(range(1,20) as $user_id)
@@ -39,10 +40,16 @@ class DatabaseSeeder extends Seeder
                     Vote::factory()->create(
                         [
                         'user_id' => $user_id,
-                         'idea_id' => $idea_id   
+                         'idea_id' => $idea_id
                         ]);
                 }
             }
+        }
+
+        // generate comments for ideas
+        foreach (Idea::all() as $idea)
+        {
+            Comment::factory(5)->existing()->create(['idea_id' => $idea->id]);
         }
     }
 }

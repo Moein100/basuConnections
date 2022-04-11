@@ -28,6 +28,7 @@ class MarkIdeaAsNotSpam extends Component
         $this->idea->save();
 
         $this->emit('ideaWasMarkedAsNotSpam');
+
     }
     public function render()
     {

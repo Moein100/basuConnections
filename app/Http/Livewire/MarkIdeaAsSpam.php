@@ -23,11 +23,23 @@ class MarkIdeaAsSpam extends Component
         {
             abort(Response::HTTP_FORBIDDEN);
         }
+        session()->reflash();
 
-        $this->idea->spam_reports++;
+        $this->idea->increment('spam_reports');
         $this->idea->save();
 
         $this->emit('ideaWasMarkedAsSpam');
+
+
+
+
+
+
+
+
+        $this->emit('refreshPage');
+
+
     }
 
     public function render()
