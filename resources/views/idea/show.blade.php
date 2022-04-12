@@ -13,13 +13,11 @@
 
 
 
-<livewire:idea-show :idea="$idea" :votesCount="$votesCount"/>
+    <livewire:idea-show :idea="$idea" :votesCount="$votesCount"/>
+
+    <livewire:idea-comments :idea="$idea"/>
 
 
 
     <x-ideas-modals-container :idea="$idea"/>
-
-
-
-  <livewire:idea-comments :idea="$idea"/>
 </x-app-layout>

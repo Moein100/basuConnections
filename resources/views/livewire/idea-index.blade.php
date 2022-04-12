@@ -35,7 +35,7 @@
                 @endif
             </div>
             {{-- 2 --}}
-            <div class="flex flex-col md:flex-row flex-1 px-2 py-6">
+            <div class="flex flex-col md:flex-row flex-1 px-3 py-6">
 
                 <a href="" class="flex-none w-14 h-14 mx-2 md:mx-0">
                     <img src="{{$idea->user->getAvatar()}}" alt="avatar" class="w-14 h-14 rounded-xl">
@@ -58,7 +58,7 @@
                             <div>&bull;</div>
                             <div>{{$idea->category->name}}</div>
                             <div>&bull;</div>
-                            <div class="text-gray-800">3 comments</div>
+                            <div class="text-gray-800">{{$idea->comments_count}} comments</div>
                         </div>
                         <div
                         class="flex items-center space-x-2 mt-4 md:mt-0"

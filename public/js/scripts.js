@@ -1,4 +1,14 @@
-
+Livewire.on('commentWasAdded',() =>
+{
+    Swal.fire(
+        {
+            title: 'test',
+            text : 'comment was added successfully',
+            icon: 'success',
+            confirmButtonText: 'Save',
+            timer: 4000
+        });
+})
 
 Livewire.on('ideaWasMarkedAsSpam',() =>
 {
