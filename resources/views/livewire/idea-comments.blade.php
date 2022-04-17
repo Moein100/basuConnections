@@ -20,10 +20,10 @@
 
 
 
-{{--        --}}{{-- admin comment   --}}
+{{--        --}}{{----}}{{-- admin comment   --}}
 
 
-{{--        <div class="is-admin comment-container relative bg-white rounded-xl flex ">--}}
+{{--        <div class="is-status-update comment-container relative bg-white rounded-xl flex ">--}}
 
 {{--            <div class=" flex flex-1 px-3 py-6">--}}
 {{--                <div class="flex-none">--}}
@@ -88,6 +88,9 @@
 
 
     </div>
+        <div class="ml-22">
+            {{$comments->links()}}
+        </div>
         @else
 
         <div class="mx-auto w-70 mt-12 ">

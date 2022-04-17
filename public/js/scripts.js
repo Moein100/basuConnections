@@ -1,3 +1,54 @@
+Livewire.on('commentWasMarkedAsNotSpam',() =>
+{
+    Swal.fire(
+        {
+            title: 'test',
+            text : 'NO spam',
+            icon: 'success',
+            confirmButtonText: 'Save',
+            timer: 4000
+        });
+})
+
+Livewire.on('commentWasMarkedAsSpam',() =>
+{
+    Swal.fire(
+        {
+            title: 'test',
+            text : 'Comment was spamed',
+            icon: 'success',
+            confirmButtonText: 'Save',
+            timer: 4000
+        });
+})
+
+
+
+Livewire.on('commentWasDeleted',() =>
+{
+    Swal.fire(
+        {
+            title: 'test',
+            text : 'Comment was Deleted',
+            icon: 'success',
+            confirmButtonText: 'Save',
+            timer: 4000
+        });
+})
+
+Livewire.on('commentWasUpdated',() =>
+{
+    Swal.fire(
+        {
+            title: 'test',
+            text : 'Comment was Updated',
+            icon: 'success',
+            confirmButtonText: 'Save',
+            timer: 4000
+        });
+})
+
+
 Livewire.on('commentWasAdded',() =>
 {
     Swal.fire(

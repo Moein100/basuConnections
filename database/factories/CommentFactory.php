@@ -21,6 +21,7 @@ class CommentFactory extends Factory
         return [
             'user_id' => User::factory(),
             'idea_id' => Idea::factory(),
+            'status_id' => 1,
             'body' => $this->faker->paragraph(5),
         ];
     }

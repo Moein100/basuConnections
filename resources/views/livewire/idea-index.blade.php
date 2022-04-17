@@ -58,12 +58,12 @@
                             <div>&bull;</div>
                             <div>{{$idea->category->name}}</div>
                             <div>&bull;</div>
-                            <div class="text-gray-800">{{$idea->comments_count}} comments</div>
+                            <div wire:ignore class="text-gray-800">{{$idea->comments_count}} comments</div>
                         </div>
                         <div
                         class="flex items-center space-x-2 mt-4 md:mt-0"
                         x-data="{isOpen:false}">
-                            <span class="{{$idea->status->classes}} text-xxs font-bold uppercase leading-none rounded-full text-center  px-7 py-1">
+                            <span class="{{'status-'.Str::kebab($idea->status->name)}} text-xxs font-bold uppercase leading-none rounded-full text-center  px-7 py-1">
                                 {{$idea->status->name}}
                             </span>
 {{--                            <button --}}

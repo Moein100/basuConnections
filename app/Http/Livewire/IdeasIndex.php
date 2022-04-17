@@ -128,6 +128,13 @@ class IdeasIndex extends Component
             {
                 return $query->where('spam_reports','>',0)->orderByDesc('spam_reports');
             })
+            ->when($this->filter && $this->filter == "Spam Comments",function($query)
+            {
+                    return $query->whereHas('comments', function ($query)
+                    {
+                        $query->where('spam_reports','>',0);
+                    });
+            })
             ->when(strlen($this->search) >= 3,function($query)
             {
                 return $query->where('title','like',"%".$this->search."%");
@@ -135,7 +142,8 @@ class IdeasIndex extends Component
             ->withCount('comments')
             ->addSelect(['voted_by_user' => Vote::select('id')->where('user_id',auth()->id())->whereColumn('idea_id','ideas.id')])
             ->orderBy('id','desc')
-            ->simplePaginate(10),
+            ->simplePaginate(10)
+            ->withQueryString(),
             'categories' => $categories,
         ]);
     }

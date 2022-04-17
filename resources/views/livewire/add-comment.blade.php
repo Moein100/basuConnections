@@ -6,6 +6,34 @@
         @click.away="isOpen = false"
         x-init="
             Livewire.on('commentWasAdded',() => {isOpen = false})
+            Livewire.hook('message.processed', (message, component) =>
+            {
+                
+{{--            if(message.updateQueue[0].method == 'gotoPage' || message.updateQueue[0].method == 'nextPage' || message.updateQueue[0].method == 'previousPage')--}}
+            if(['gotoPage','nextPage','previousPage'].includes(message.updateQueue[0].method))
+            {
+
+                const firstComment1=document.querySelector('.comment-container:first-child')
+                firstComment1.scrollIntoView({behavior : 'smooth'})
+            }
+
+
+                if (['commentWasAdded'].includes(message.updateQueue[0].payload.event)
+                    && message.component.fingerprint.name === 'idea-comments')
+                {
+
+                    const firstComment=document.querySelector('.comment-container:first-child')
+
+
+                    firstComment.classList.add('bg-green-100')
+                     firstComment.classList.remove('bg-white')
+                    setTimeout(() =>
+                    {
+                    firstComment.classList.remove('bg-green-100')
+                    firstComment.classList.add('bg-white')
+                    },3000)
+                }
+            })
             "
         class='relative'>
         <button

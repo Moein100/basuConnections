@@ -29,12 +29,13 @@
                             <div>&bull;</div>
                             <div>{{$idea->category->name}}</div>
                             <div>&bull;</div>
-                            <div class="text-gray-800">{{$idea->comments->count()}} comments</div>
+{{--                            <div class="text-gray-800">{{$idea->comments->count()}} comments</div>--}}
+                            <div class="text-gray-800">{{$idea->comments()->count()}} comments</div>
                         </div>
                         <div
                             class="flex items-center space-x-2 mt-4 lg:mt-0 md:justify-between"
                             x-data="{isOpen:false}">
-                                <div class="{{$idea->status->classes}} text-xxs font-bold uppercase leading-none rounded-full text-center  px-7 py-1">
+                                <div class="{{'status-'.Str::kebab($idea->status->name)}} text-xxs font-bold uppercase leading-none rounded-full text-center  px-7 py-1">
                                     {{$idea->status->name}}
                                 </div>
                             @auth

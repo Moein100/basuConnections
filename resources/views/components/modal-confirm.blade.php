@@ -1,6 +1,7 @@
 @props(
 [
-'eventToOpenModal',
+'livewireEventToOpenModal' => null,
+'eventToOpenModal' => null,
 'eventToCloseModal',
 'modalTitle',
 'modaldescription',
@@ -14,13 +15,25 @@
     x-data="{isOpen:false}"
     x-show="isOpen"
     @keydown.escape.window="isOpen = false"
+    @if($eventToOpenModal)
     {{'@'.$eventToOpenModal}}.window="
             isOpen = true
             $nextTick(()=>$refs.focusButton.focus())
             "
-    x-init="window.livewire.on('{{$eventToCloseModal}}', () => { isOpen = false})"
-    x-transition.origin.bottom.duration.400ms
+    @endif
 
+    x-init="
+    window.livewire.on('{{$eventToCloseModal}}', () => { isOpen = false})
+
+    @if($livewireEventToOpenModal)
+        Livewire.on('{{$livewireEventToOpenModal}}',() => {
+         isOpen = true
+         $nextTick(()=>$refs.focusButton.focus())
+         })
+    @endif
+
+    "
+    x-transition.origin.bottom.duration.400ms
 
 
     class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true" style="display: none">

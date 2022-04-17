@@ -1,21 +1,39 @@
 
     {{-- Nothing in the world is as soft and yielding as water. --}}
-    <div class="comment-container relative bg-white rounded-xl flex ">
+    <div class="@if($comment->is_status_update) is-status-update  {{'status-'.Str::kebab($comment->status->name)}}@endif comment-container relative bg-white rounded-xl flex transition duration-500 ease-in">
 
         <div class="flex flex-1 px-2 py-6">
             <div class="flex-none mx-2 md:mx-0">
                 <a href="" ><img src="{{$comment->author->getAvatar()}}" alt="avatar" class="w-14 h-14 rounded-xl"></a>
+                @if($comment->author->isAdmin())
+                    <div class="text-center uppercase text-blue-600 text-xxs font-bold mt-1">
+                        Admin
+                    </div>
+                @endif
             </div>
+
             <div class="w-full md:mx-4">
                 {{-- <h4 class="text-xl font-semibold">
                     <a href="#" class="hover:underline">A random title can go here</a>
                 </h4> --}}
                 <div class="text-gray-600 mt-3">
-                    {{$comment->body}}
+                    @admin
+                    @if($comment->spam_reports > 0)
+                        <div class="text-white w-1/2 text-center px-4 py-0.5 bg-red-500 rounded-full mb-2">Spam reports : {{$comment->spam_reports}}</div>
+                    @endif
+                    @endadmin
+                    @if($comment->is_status_update)
+                    <h4 class="text-xl font-semibold mb-2">
+                        <a href="#" class="hover:underline">Status changed to "{{$comment->status->name}}"</a>
+                    </h4>
+                    @endif
+                    <div>
+                        {{$comment->body}}
+                    </div>
                 </div>
                 <div class="flex  md:items-center justify-between mt-6">
                     <div class="flex items-center md:text-xs text-xxs font-semibold space-x-2 text-gray-300">
-                        <div class="font-bold text-gray-900">{{$comment->author->name}}</div>
+                        <div class="@if($comment->is_status_update) text-blue-600 @else text-gray-900 @endif font-bold  ">{{$comment->author->name}}</div>
                         <div>&bull;</div>
                         <div>{{$comment->created_at->diffForHumans()}}</div>
                         <div>&bull;</div>
@@ -26,7 +44,7 @@
                         @endif
                     </div>
 
-
+                    @auth
                     <div
                         class="flex items-center space-x-2 "
                         x-data="{isOpen:false}">
@@ -39,17 +57,53 @@
                             @keydown.escape.window="isOpen = false"
                             class="bg-gray-200 text-xxs hover:bg-gray-400 rounded-full py-1 px-4 transition duration-150 ease-in "
                         >
-                            <svg class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                            <svg class="h-4 w-4 text-gray-600" viewBox="0 0 20 20" fill="currentColor">
                                 <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" />
                             </svg>
                             <ul
                                 x-show="isOpen" x-transition.origin.top.left.duration.200ms
                                 class="absolute z-40 w-44 font-semibold text-sm bg-white shadow-lg rounded-xl py-3   md:ml-8  -ml-36" style="display : none">
-                                <li><a href="" class="hover:bg-gray-200 px-5 py-3 block transition duration-150 ease-in"> Mark as smap</a></li>
-                                <li><a href="" class="hover:bg-gray-200 px-5 py-3 block transition duration-150 ease-in"> Delete Post</a></li>
+                                @can('update',$comment)
+                                <li><a href=""
+                                       @click.prevent="
+{{--                                       $dispatch('custom-show-edit-modal')--}}
+                                           Livewire.emit('setEditComment',{{$comment->id}})
+                                        "
+                                       class="hover:bg-gray-200 px-5 py-3 block transition duration-150 ease-in text-gray-600"> edit</a></li>
+                                @endcan
+                                @can('delete',$comment)
+                                        <li><a href=""
+                                               @click.prevent="
+
+                                                   Livewire.emit('setDeleteComment',{{$comment->id}})
+                                        "
+
+
+                                               class="hover:bg-gray-200 px-5 py-3 block transition duration-150 ease-in text-gray-600"> Delete</a></li>
+                                @endcan
+
+                                    <li><a href=""
+                                           @click.prevent="
+
+                                                   Livewire.emit('setCommentMarkAsSpam',{{$comment->id}})
+                                        "
+
+
+                                           class="hover:bg-gray-200 px-5 py-3 block transition duration-150 ease-in text-gray-600 " > Mark as spam</a></li>
+                                @admin
+                                    <li><a href=""
+                                           @click.prevent="
+
+                                                   Livewire.emit('setCommentMarkAsNotSpam',{{$comment->id}})
+                                        "
+
+
+                                           class="hover:bg-gray-200 px-5 py-3 block transition duration-150 ease-in text-gray-600"> Mark as not spam</a></li>
+                                @endadmin
                             </ul>
                         </button>
                     </div>
+                    @endauth
                 </div>
             </div>
 

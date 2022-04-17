@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Jobs\NotifyAllVoters;
 // use App\Mail\IdeaStatusUpdateMailable;
+use App\Models\Comment;
 use App\Models\Idea;
 use Illuminate\Http\Response;
 // use Illuminate\Support\Facades\Mail;
@@ -16,7 +17,9 @@ class SetStatus extends Component
 
     public $status;
 
-    public $notifyAllVoters; 
+    public $notifyAllVoters;
+
+    public $comment;
 
     public function mount(Idea $idea)
     {
@@ -27,18 +30,17 @@ class SetStatus extends Component
 
     public function setStatus()
     {
-        if (!auth()->check() || !auth()->user()->isAdmin()) 
+        if (!auth()->check() || !auth()->user()->isAdmin())
         {
             abort(Response::HTTP_FORBIDDEN);
         }
 
         $this->idea->status_id = $this->status;
         $this->idea->save();
-        $this->emit('statusWasUpdated');
 
 
-        
-        if ($this->notifyAllVoters) 
+
+        if ($this->notifyAllVoters)
         {
             $voters=$this->idea->votes()->select('name','email')
          ->chunk(100,function ($voters)
@@ -48,11 +50,24 @@ class SetStatus extends Component
                  //send email
                 NotifyAllVoters::dispatch($user,$this->idea)->delay(2);
          }});
-           
+
+
                 // NotifyAllVoters::dispatch($this->idea);
-           
+
         }
 
+        Comment::create(
+            [
+                'user_id' => auth()->id(),
+                'idea_id' => $this->idea->id,
+                'status_id' =>$this->status,
+                'body' => $this->comment ?? 'No Comment was Added',
+                'is_status_update' => true,
+            ]);
+
+        $this->reset('comment');
+
+        $this->emit('statusWasUpdated');
 
 
 
@@ -78,13 +93,13 @@ class SetStatus extends Component
     //     //          //send email
     //     //          Mail::to($user)->queue(new IdeaStatusUpdateMailable($this->idea));
     //     //      }
-            
+
     //     //  });
-        
 
 
 
-        
+
+
     // }
 
     public function render()

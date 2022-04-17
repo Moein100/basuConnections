@@ -12,6 +12,7 @@ class Idea extends Model
 
     protected $guarded =[];
 
+//    protected $with=['user','category','status','votes','comments'];
     protected $with=['user','category','status','votes'];
 
         /**

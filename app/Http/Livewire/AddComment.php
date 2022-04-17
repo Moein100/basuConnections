@@ -29,6 +29,9 @@ class AddComment extends Component
 
     public function addComment()
     {
+
+
+
         if (auth()->guest())
         {
             abort(Response::HTTP_FORBIDDEN);
@@ -40,12 +43,33 @@ class AddComment extends Component
             [
                'user_id' => auth()->id(),
                 'idea_id' => $this->idea->id,
+                'status_id' =>1,
                 'body' => $this->comment
             ]);
 
-        $this->reset();
+        if (strpos(url()->previous(),"?comment=") && !strpos(url()->previous(),"?comment=1"))
+        {
+            redirect(explode('?',url()->previous())[0]);
 
-        $this->emit('commentWasAdded');
+            $this->reset('comment');
+
+            $this->emit('commentWasAdded');
+            $this->emit('refreshPage');
+            $this->idea->refresh();
+
+
+        }
+        else
+        {
+            $this->reset('comment');
+
+            $this->emit('commentWasAdded');
+            $this->emit('refreshPage');
+            $this->idea->refresh();
+        }
+
+
+
     }
 
 

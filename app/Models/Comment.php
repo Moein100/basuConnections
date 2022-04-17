@@ -11,6 +11,8 @@ class Comment extends Model
 
     protected $guarded=[];
 
+    protected $with=['author','idea','status'];
+
     public function author()
     {
         return $this->belongsTo(User::class,"user_id");
@@ -18,5 +20,10 @@ class Comment extends Model
     public function idea()
     {
         return $this->belongsTo(Idea::class);
+    }
+
+    public function status()
+    {
+        return $this->belongsTo(Status::class);
     }
 }

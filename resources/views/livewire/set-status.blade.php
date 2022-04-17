@@ -5,22 +5,22 @@
     @click.away="isOpen = false"
     x-init="window.livewire.on('statusWasUpdated', () => { isOpen = false})"
     class='relative'>
-       <button 
+       <button
        @click="isOpen = !isOpen"
-       
+
        @keydown.escape.window="isOpen = false"
-       type="button" 
+       type="button"
        class="flex items-center justify-between md:px-10 px-6 py-2 text-sm bg-gray-200
        font-semibold rounded-xl border border-gray-200 hover:border-gray-400
        transition duration-150 ease-in mt-2 md:mt-0">
            <svg class="h-5 w-5 text-gray-600 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
            </svg>
-         
+
            <span> Set Status</span>
-       </button> 
-       
-       <div 
+       </button>
+
+       <div
        x-show="isOpen" x-transition.origin.top.left.duration.200ms style="display:none"
        class="absolute z-20 w-76 text-left font-semibold text-sm bg-white
        shadow-md rounded-xl mt-2">
@@ -61,12 +61,12 @@
                </div>
            </div>
 
-           <textarea name="update_comment" id="" cols="30" rows="3"
-           class="w-full text-sm bg-gray-100 rounded-xl placeholder-gray-500 border-none px-4 py-2" 
+           <textarea wire:model="comment" name="update_comment" id="" cols="30" rows="3"
+           class="w-full text-sm bg-gray-100 rounded-xl placeholder-gray-500 border-none px-4 py-2"
            placeholder="Add a comment "></textarea>
 
            <div class="flex items-center justify-between space-x-3">
-               <button type="button" 
+               <button type="button"
                class="flex items-center justify-center w-1/2 h-11 text-xs bg-gray-200
                font-semibold rounded-xl border border-gray-200 hover:border-gray-400
                transition duration-150 ease-in">
@@ -77,19 +77,19 @@
                </button>
 
 
-               <button type="submit" 
+               <button type="submit"
                class="flex submit-blue  items-center justify-center w-1/2 h-11 text-xs text-white
                font-semibold rounded-xl border-2 border-blue-600 hover:border-blue-800
                transition duration-150 ease-in disabled:opacity-50">
                    <span>Update</span>
                </button>
-           </div> 
+           </div>
            <div>
                <label class="font-normal inline-flex items-center">
                    <input wire:model="notifyAllVoters" type="checkbox" name="notify_voters" class="border-none bg-gray-200" >
-                   <span class="ml-2">Notifyl All Voters</span>    
-               </label>    
-           </div> 
+                   <span class="ml-2">Notifyl All Voters</span>
+               </label>
+           </div>
        </form>
 
 

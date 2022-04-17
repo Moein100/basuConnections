@@ -16,6 +16,15 @@ class CommentPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
+    public function before(User $user, $ability)
+    {
+        if ($user->isAdmin())
+        {
+            return true;
+        }
+    }
+
+
     public function viewAny(User $user)
     {
         //
@@ -53,7 +62,7 @@ class CommentPolicy
      */
     public function update(User $user, Comment $comment)
     {
-        //
+        return $user->id == $comment->user_id;
     }
 
     /**
@@ -65,7 +74,7 @@ class CommentPolicy
      */
     public function delete(User $user, Comment $comment)
     {
-        //
+        return $user->id == $comment->user_id;
     }
 
     /**
