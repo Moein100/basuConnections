@@ -2,13 +2,17 @@
 
 namespace App\Http\Livewire;
 
+use App\Http\Livewire\Traits\WithAuthRedirects;
 use App\Models\Comment;
 use App\Models\Idea;
+use App\Notifications\CommentAdded;
 use Illuminate\Http\Response;
 use Livewire\Component;
 
 class AddComment extends Component
 {
+
+    use WithAuthRedirects;
     public $idea;
     public $comment;
 
@@ -39,14 +43,14 @@ class AddComment extends Component
 
         $this->validate();
 
-        Comment::create(
+        $newComment=Comment::create(
             [
                'user_id' => auth()->id(),
                 'idea_id' => $this->idea->id,
                 'status_id' =>1,
                 'body' => $this->comment
             ]);
-
+        $this->idea->user->notify(new CommentAdded($newComment));
         if (strpos(url()->previous(),"?comment=") && !strpos(url()->previous(),"?comment=1"))
         {
             redirect(explode('?',url()->previous())[0]);
@@ -62,7 +66,6 @@ class AddComment extends Component
         else
         {
             $this->reset('comment');
-
             $this->emit('commentWasAdded');
             $this->emit('refreshPage');
             $this->idea->refresh();

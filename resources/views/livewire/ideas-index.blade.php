@@ -59,5 +59,6 @@
       </div>
 </div>
 
+<x-notification-error/>
 
 </div>

@@ -1,4 +1,5 @@
 <div>
+    @auth
     <form wire:submit.prevent="createIdea" action="" method="POST" class="space-y-4 py-6">
         <div>
             <input wire:model.defer="title" type="text" class="w-full border-none text-sm bg-gray-200 rounded-xl placeholder-gray-500
@@ -51,6 +52,31 @@
             </button>
         </div>
     </form>
+    @else
+    <div class="my-6 text-center">
+        <a 
+        wire:click.prevent="redirectToLogin"
+
+        href="{{route('login')}}"
+            class="flex flex-col justify-center mx-auto w-1/2 h-11 text-xs bg-blue-500 text-white
+            font-semibold rounded-xl border-2 border-blue-500 hover:border-blue-800
+            transition duration-150 ease-in">
+                <span>Login</span>
+        </a>
+
+
+        <a 
+        wire:click.prevent="redirectToRegister"
+        href="{{route('register')}}"
+            class="flex flex-col justify-center mx-auto mt-3 w-1/2 h-11 text-xs bg-gray-200
+            font-semibold rounded-xl border border-gray-200 hover:border-gray-400
+            transition duration-150 ease-in">
+
+                <span> Sing up</span>
+        </a>
+    </div>
+
+    @endauth
     <div>
 {{--        @if(session('success_message'))--}}
 {{--            <div--}}

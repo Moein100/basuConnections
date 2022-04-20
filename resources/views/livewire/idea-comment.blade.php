@@ -1,6 +1,6 @@
 
     {{-- Nothing in the world is as soft and yielding as water. --}}
-    <div class="@if($comment->is_status_update) is-status-update  {{'status-'.Str::kebab($comment->status->name)}}@endif comment-container relative bg-white rounded-xl flex transition duration-500 ease-in">
+    <div id="comment-{{$comment->id}}" class="@if($comment->is_status_update) is-status-update  {{'status-'.Str::kebab($comment->status->name)}}@endif comment-container relative bg-white rounded-xl flex transition duration-500 ease-in">
 
         <div class="flex flex-1 px-2 py-6">
             <div class="flex-none mx-2 md:mx-0">

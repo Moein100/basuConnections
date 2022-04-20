@@ -8,7 +8,7 @@
             Livewire.on('commentWasAdded',() => {isOpen = false})
             Livewire.hook('message.processed', (message, component) =>
             {
-                
+{{--                pagination--}}
 {{--            if(message.updateQueue[0].method == 'gotoPage' || message.updateQueue[0].method == 'nextPage' || message.updateQueue[0].method == 'previousPage')--}}
             if(['gotoPage','nextPage','previousPage'].includes(message.updateQueue[0].method))
             {
@@ -17,7 +17,7 @@
                 firstComment1.scrollIntoView({behavior : 'smooth'})
             }
 
-
+{{--                adding comment--}}
                 if (['commentWasAdded'].includes(message.updateQueue[0].payload.event)
                     && message.component.fingerprint.name === 'idea-comments')
                 {
@@ -34,6 +34,21 @@
                     },3000)
                 }
             })
+
+            @if(session('scrollToComment'))
+
+            const commentToScrollTo=document.querySelector('#comment-{{session('scrollToComment')}}')
+
+
+                    commentToScrollTo.classList.add('bg-green-100')
+                     commentToScrollTo.classList.remove('bg-white')
+                    setTimeout(() =>
+                    {
+                    commentToScrollTo.classList.remove('bg-green-100')
+                    commentToScrollTo.classList.add('bg-white')
+                    },3000)
+
+            @endif
             "
         class='relative'>
         <button
@@ -97,13 +112,17 @@
 
 
 
-                                <a href="{{ route('login') }}"
+                                <a 
+                                wire:click.prevent="redirectToLogin"
+                                href="{{ route('login') }}"
                                    class="flex items-center justify-center text-sm bg-gray-400 text-white font-semibold
                                      rounded-xl   hover:bg-gray-500 transition duration-150 ease-in
                                         px-12 py-2">Log in</a>
 
 
-                                <a href="{{ route('register') }}"
+                                <a 
+                                wire:click.prevent="redirectToRegister"
+                                href="{{ route('register') }}"
                                    class="flex items-center justify-center text-sm bg-blue-600 text-white font-semibold
                                         rounded-xl   hover:bg-blue-800 transition duration-150 ease-in
                                     px-12 py-2">Register</a>
